@@ -1,0 +1,22 @@
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: wheat
+    
+  }
+  
+  .register-form {
+    border: 1px solid blue;
+    padding: 30px;
+    background-color: aquamarine;
+  }
+  
+  .center {
+    display:flex;
+    align-items: top;
+  }
+  
+
+  
