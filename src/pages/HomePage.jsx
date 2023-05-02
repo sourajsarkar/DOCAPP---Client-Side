@@ -1,34 +1,40 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import Layout from "../components/Layout";
+import Layout from "./../components/Layout";
+import { useDispatch } from "react-redux";
 
-const HomePage = () => {
-  console.log("Home page loaded");
-  const getUserData = async () => {
-    try {
-      const res = await axios.post(
-        "/api/v1/user/getUserData",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer" + localStorage.getItem("token"),
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+import { setUser } from "../redux/features/userSlice";
+
+const Homepage = () => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getUserData();
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      getUserData(token);
+    }
   }, []);
 
+  //login userdata
+  const getUserData = async (token) => {
+    try {
+      const res = await axios.post("/api/v1/user/getUserData", {
+        token,
+      });
+      console.log(res.data.data);
+      dispatch(setUser(res.data.data));
+      console.log("sucessfully getuserDATA");
+    } catch (error) {
+      console.log(error);
+      console.log("failed userDATA");
+    }
+  };
   return (
     <Layout>
-      <h1>HomePages</h1>
+      <h1>Home page</h1>
     </Layout>
   );
 };
 
-export default HomePage;
+export default Homepage;
