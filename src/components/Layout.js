@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/LayoutStyles.css";
-import { SidebarMenu } from "../Data/data";
+import { adminMenu, userMenu } from "../Data/data";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -8,6 +8,8 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const { user } = useSelector((state) => state.user);
 
+  //redering menulist
+  const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
   return (
     <div className="main">
       <div className="layout">
